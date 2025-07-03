@@ -1,18 +1,16 @@
 Package: survAHadjust
 Type: Package
 Title: Adjusted Average Hazard with Survival Weight (AHSW)
-Version: 1.1.0
-Date: 2025-05-09
+Version: 1.0.0
+Date: 2025-07-03
 Authors@R: c(
+  person("Hong", "Xiong", , "horiguchimiki@gmail.com", role = c("cre","aut"),
+         comment = c(ORCID = "0000-0003-4402-7478")),
   person("Hajime", "Uno", role = "aut",
-         comment = c(ORCID = "0000-0003-0622-8471")),
-  person("Miki", "Horiguchi", , "horiguchimiki@gmail.com", role = c("aut", "cre"),
-         comment = c(ORCID = "0000-0002-9800-1954")),
-  person("Hong", "Xiong", role = c("aut"),
-         comment = c(ORCID = "0000-0003-4402-7478"))
+         comment = c(ORCID = "0000-0003-0622-8471"))
   )
 Description: Calculate Adjusted Average Hazard with Survival Weight (AHSW), RMST, and Event Rate.
-License: GPL-2
+License: GPL-3
 Depends: survival, R (>= 2.10), ggplot2, riskRegression, pammtools, adjustedCurves
 Encoding: UTF-8
 LazyData: true

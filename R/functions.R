@@ -52,8 +52,10 @@ ahsw.calc=function(time, surv, tau=NA){
 #' @title Adjusted Average Hazard with Survival Weight (AHSW)
 #' @description Calculate Adjusted Average Hazard with Survival Weight (AHSW), RMST, and Event Rate.
 #' @details It also calculates confidence intervals and p-values using bootstrapped standard errors.
-#' @author Hajime Uno, Miki Horiguchi, Hong Xiong
+#' @author Hong Xiong, Hajime Uno
 #' @references
+#' Xiong H, Connors J, Schrag D, Uno H. Comparative Effectiveness Research with Average Hazard for Censored Time-to-Event Outcomes: A Numerical Study <arXiv:2407.00709>
+#'
 #' Uno H and Horiguchi M. Ratio and difference of average hazard with survival weight: new measures to quantify survival benefit of new therapy. Statistics in Medicine. 2023;1-17. \doi{10.1002/sim.9651}
 #' @usage adjusted_ahsw(adjsurv, to, from=0, conf_int=FALSE, conf_level=0.95)
 #' @param adjsurv A list object resulting from an adjusted survival analysis
@@ -74,9 +76,6 @@ ahsw.calc=function(time, surv, tau=NA){
 #' library(riskRegression)
 #' library(pammtools)
 #' library(adjustedCurves)
-#'
-#' # set random number generator seed to make this reproducible
-#' set.seed(44)
 #'
 #' # simulate standard survival data with 300 rows
 #' data_1 <- sim_confounded_surv(n=300, max_t=1.1, group_beta=-0.6)
