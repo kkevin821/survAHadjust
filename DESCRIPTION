@@ -4,7 +4,7 @@ Title: Adjusted Average Hazard with Survival Weight (AHSW)
 Version: 1.0.0
 Date: 2025-07-03
 Authors@R: c(
-  person("Hong", "Xiong", , "horiguchimiki@gmail.com", role = c("cre","aut"),
+  person("Hong", "Xiong", , "Hong.Xiong@Pennmedicine.upenn.edu", role = c("cre","aut"),
          comment = c(ORCID = "0000-0003-4402-7478")),
   person("Hajime", "Uno", role = "aut",
          comment = c(ORCID = "0000-0003-0622-8471"))
