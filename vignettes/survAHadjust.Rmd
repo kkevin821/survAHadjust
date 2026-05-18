@@ -1,0 +1,214 @@
+---
+title: "Using survAHadjust"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using survAHadjust}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+The `survAHadjust` package calculates average hazard-based summaries from adjusted survival curves.
+
+The main workflow is:
+
+```text
+adjusted survival curves
+  -> adjusted_ahsw()
+  -> ahsw_table()
+```
+
+For most adjusted survival curve methods, users can use `adjustedCurves::adjustedsurv()`.
+
+For AIPTW, this package provides `aiptw_adjustedsurv()`.
+
+# Load packages
+
+```{r setup}
+library(survAHadjust)
+library(survival)
+```
+
+# Example data
+
+We use the `pbc` data from the `survival` package only as a small example dataset.
+
+```{r data}
+D <- survival::pbc[!is.na(survival::pbc$trt), ]
+
+D$Y <- D$time / 365.25
+D$Delta <- as.numeric(D$status == 2)
+D$Z <- as.numeric(D$trt == 2)
+
+D <- D[complete.cases(D[, c("Y", "Delta", "Z", "age", "sex", "bili", "albumin")]), ]
+
+head(D[, c("Y", "Delta", "Z", "age", "sex", "bili", "albumin")])
+```
+
+# Workflow 1: Analyze an existing adjusted survival curve object
+
+The function `adjusted_ahsw()` accepts an object that contains adjusted survival curves in `adjsurv$adj`.
+
+The required columns are:
+
+```text
+time
+surv
+group
+```
+
+```{r fake-adjsurv}
+adjsurv_example <- list(
+  adj = data.frame(
+    time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+    group = factor(c(0, 0, 0, 1, 1, 1)),
+    surv = c(1.0, 0.80, 0.70, 1.0, 0.90, 0.85)
+  )
+)
+
+res_example <- adjusted_ahsw(adjsurv_example, to = 1, conf_int = FALSE)
+
+res_example$est
+```
+
+The result can be formatted using `ahsw_table()`.
+
+```{r fake-table}
+ahsw_table(res_example, method = "Example")
+```
+
+# Workflow 2: Standard methods from adjustedCurves
+
+For standard adjusted survival curve methods, users can first call `adjustedCurves::adjustedsurv()` and then pass the result to `adjusted_ahsw()`.
+
+The following code shows the workflow. It is not evaluated in this vignette because it depends on `adjustedCurves` and its additional dependencies.
+
+```{r adjustedcurves-direct, eval = FALSE}
+D_ac <- D
+D_ac$Z <- factor(D_ac$Z)
+
+outcome_model <- survival::coxph(
+  survival::Surv(Y, Delta) ~ Z + age + sex + bili + albumin,
+  data = D_ac,
+  x = TRUE
+)
+
+adjsurv_direct <- adjustedCurves::adjustedsurv(
+  data = D_ac,
+  variable = "Z",
+  ev_time = "Y",
+  event = "Delta",
+  method = "direct",
+  outcome_model = outcome_model,
+  conf_int = FALSE,
+  bootstrap = FALSE
+)
+
+res_direct <- adjusted_ahsw(
+  adjsurv = adjsurv_direct,
+  to = 5,
+  conf_int = FALSE
+)
+
+ahsw_table(res_direct, method = "Direct standardization")
+```
+
+Other methods from `adjustedCurves::adjustedsurv()` can be used in the same way, such as IPTW, matching, empirical likelihood, and Kaplan-Meier methods.
+
+# Workflow 3: Custom AIPTW
+
+For AIPTW, use `aiptw_adjustedsurv()` from this package.
+
+```{r aiptw}
+adjsurv_aiptw <- aiptw_adjustedsurv(
+  data = D,
+  covars_treat = c("age", "sex"),
+  covars_outcome = c("bili", "age", "albumin"),
+  y_col = "Y",
+  delta_col = "Delta",
+  z_col = "Z",
+  bootstrap = FALSE
+)
+
+head(adjsurv_aiptw$adj)
+```
+
+Then pass the result to `adjusted_ahsw()`.
+
+```{r aiptw-ahsw}
+res_aiptw <- adjusted_ahsw(
+  adjsurv = adjsurv_aiptw,
+  to = 5,
+  conf_int = FALSE
+)
+
+res_aiptw$est
+```
+
+Format the result:
+
+```{r aiptw-table}
+ahsw_table(res_aiptw, method = "AIPTW")
+```
+
+# Bootstrap inference
+
+Bootstrap can be requested by setting `bootstrap = TRUE`.
+
+For real analyses, use a larger number of bootstrap samples, such as `n_boot = 300`.
+
+The following code is not evaluated in this vignette because it can take longer to run.
+
+```{r bootstrap-example, eval = FALSE}
+adjsurv_aiptw_boot <- aiptw_adjustedsurv(
+  data = D,
+  covars_treat = c("age", "sex"),
+  covars_outcome = c("bili", "age", "albumin"),
+  y_col = "Y",
+  delta_col = "Delta",
+  z_col = "Z",
+  bootstrap = TRUE,
+  n_boot = 300
+)
+
+res_aiptw_boot <- adjusted_ahsw(
+  adjsurv = adjsurv_aiptw_boot,
+  to = 5,
+  conf_int = TRUE
+)
+
+ahsw_table(res_aiptw_boot, method = "AIPTW")
+```
+
+# Combining multiple methods
+
+Results from multiple methods can be combined with `rbind()`.
+
+The following code shows how to combine results from standard methods and AIPTW. It is not evaluated in this vignette because `res_direct` is created in a non-evaluated example above.
+
+```{r combine-multiple-methods, eval = FALSE}
+tab_all <- rbind(
+  ahsw_table(res_direct, method = "Direct standardization"),
+  ahsw_table(res_aiptw, method = "AIPTW")
+)
+
+tab_all
+```
+
+For the evaluated example in this vignette, we only show the AIPTW row.
+
+```{r combine-aiptw-only}
+tab_aiptw <- rbind(
+  ahsw_table(res_aiptw, method = "AIPTW")
+)
+
+tab_aiptw
+```

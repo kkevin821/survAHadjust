@@ -1,0 +1,8 @@
+.Rproj.user/
+.DS_Store
+*.tar.gz
+*.Rcheck/
+doc/
+Meta/
+output/
+*.zip

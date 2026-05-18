@@ -1,21 +1,31 @@
 Package: survAHadjust
-Type: Package
-Title: Adjusted Average Hazard with Survival Weight (AHSW)
-Version: 1.1.0
-Date: 2025-05-09
+Title: Adjusted Average Hazard with Survival Weight
+Version: 0.0.0.9000
 Authors@R: c(
-  person("Hajime", "Uno", role = "aut",
-         comment = c(ORCID = "0000-0003-0622-8471")),
-  person("Miki", "Horiguchi", , "horiguchimiki@gmail.com", role = c("aut", "cre"),
-         comment = c(ORCID = "0000-0002-9800-1954")),
-  person("Hong", "Xiong", role = c("aut"),
-         comment = c(ORCID = "0000-0003-4402-7478"))
-  )
-Description: Calculate Adjusted Average Hazard with Survival Weight (AHSW), RMST, and Event Rate.
-License: GPL-2
-Depends: survival, R (>= 2.10), ggplot2, riskRegression, pammtools, adjustedCurves
+    person("Hajime", "Uno", role = "aut",
+           comment = c(ORCID = "0000-0003-0622-8471")),
+    person("Miki", "Horiguchi", email = "horiguchimiki@gmail.com",
+           role = "aut",
+           comment = c(ORCID = "0000-0002-9800-1954")),
+    person("Hong", "Xiong", email = "xiongh@pennmedicine.upenn.edu",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-4402-7478"))
+    )
+Description: Calculates adjusted average hazard with survival weight,
+    restricted mean survival time, and event rate from adjusted survival
+    curves for censored time-to-event outcomes. The package also provides
+    a custom augmented inverse probability of treatment weighting estimator
+    for adjusted survival curves.
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-RoxygenNote: 7.3.2
-Suggests: knitr, rmarkdown
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 8.0.0
+Imports:
+    survival
+Suggests:
+    adjustedCurves,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
+Config/testthat/edition: 3
