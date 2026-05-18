@@ -2,7 +2,7 @@
 % Please edit documentation in R/aiptw_adjustedsurv.R
 \name{aiptw_adjustedsurv}
 \alias{aiptw_adjustedsurv}
-\title{Estimate adjusted survival curves using custom AIPTW}
+\title{Estimate adjusted survival curves using AIPTW}
 \usage{
 aiptw_adjustedsurv(
   data,
@@ -51,8 +51,9 @@ a data frame with columns \code{time}, \code{surv}, and \code{group}. If
 \code{bootstrap = TRUE}, the object also contains \code{boot_data}.
 }
 \description{
-This function applies \code{aiptw_cif()} and converts its output into an
-adjusted survival curve object that can be passed to \code{adjusted_ahsw()}.
+Estimates adjusted survival curves using augmented inverse probability of
+treatment weighting (AIPTW). This implementation follows the AIPTW/IPCW
+setup used in the simulation study and application.
 }
 \examples{
 D <- survival::pbc[!is.na(survival::pbc$trt), ]
