@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "survAHadjust: Adjusted Average Hazard with Survival Weight"
+version: "1.0.0"
+type: software
+license: MIT
+authors:
+  - given-names: Hajime
+    family-names: Uno
+    orcid: "https://orcid.org/0000-0003-0622-8471"
+  - given-names: Miki
+    family-names: Horiguchi
+    orcid: "https://orcid.org/0000-0002-9800-1954"
+  - given-names: Hong
+    family-names: Xiong
+    email: "xiongh@pennmedicine.upenn.edu"
+    orcid: "https://orcid.org/0000-0003-4402-7478"
+abstract: "Calculates adjusted average hazard with survival weight, restricted mean survival time, and event rate from adjusted survival curves for censored time-to-event outcomes."
+repository-code: "https://github.com/kkevin821/survAHadjust"
+url: "https://kkevin821.github.io/survAHadjust/"
+keywords:
+  - survival analysis
+  - adjusted survival curves
+  - average hazard
+  - causal inference
+  - AIPTW
