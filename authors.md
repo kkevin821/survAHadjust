@@ -12,13 +12,13 @@
 ## Citation
 
 Uno H, Horiguchi M, Xiong H (2026). *survAHadjust: Adjusted Average
-Hazard with Survival Weight*. R package version 1.0.0,
+Hazard with Survival Weight*. R package version 1.0.1,
 <https://kkevin821.github.io/survAHadjust/>.
 
     @Manual{,
       title = {survAHadjust: Adjusted Average Hazard with Survival Weight},
       author = {Hajime Uno and Miki Horiguchi and Hong Xiong},
       year = {2026},
-      note = {R package version 1.0.0},
+      note = {R package version 1.0.1},
       url = {https://kkevin821.github.io/survAHadjust/},
     }
