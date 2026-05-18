@@ -3,6 +3,8 @@
 *.tar.gz
 *.Rcheck/
 doc/
+docs/
 Meta/
 output/
 *.zip
+__MACOSX/

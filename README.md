@@ -209,19 +209,8 @@ res$evrt
 res$ahsw
 ```
 
-Each of these tables contains:
-
-``` text
-est
-se
-low
-upp
-p_value
-```
-
-For example, `res$ahsw` contains bootstrap-based inference for
-group-specific AHSW, the AHSW difference, and the log ratio. The rows of
-`res$ahsw` are:
+These tables give inference results for RMST, event rate, and AHSW,
+respectively. Each table has rows:
 
 ``` text
 group0
@@ -230,33 +219,42 @@ difference
 log_dif
 ```
 
-The ratio of average hazards can be obtained from the log ratio:
+and columns:
 
-``` r
-exp(res$ahsw["log_dif", "est"])
+``` text
+est      point estimate
+se       bootstrap standard error
+low      lower confidence limit
+upp      upper confidence limit
+p_value  two-sided p-value
 ```
 
-## Vignette
+The `p_value` is reported for `difference` and `log_dif`. The p-values
+for `group0` and `group1` are set to `NA`, because the main comparisons
+are the difference and ratio between groups.
+
+For example, `res$ahsw` gives bootstrap-based inference for AHSW. The
+`log_dif` row is the log ratio of average hazards. The ratio and its
+confidence interval can be obtained by exponentiating the log-scale
+values:
+
+``` r
+exp(res$ahsw["log_dif", c("est", "low", "upp")])
+```
+
+## Documentation
+
+Package documentation, function references, and the vignette are
+available at:
+
+<https://kkevin821.github.io/survAHadjust/>
+
+The vignette can also be opened directly at:
+
+<https://kkevin821.github.io/survAHadjust/articles/survAHadjust.html>
 
 The vignette source file is available in:
 
 ``` text
 vignettes/survAHadjust.Rmd
-```
-
-To preview the vignette without installing the package, open the file in
-RStudio and click **Knit**.
-
-To install the package with the vignette built locally, use:
-
-``` r
-install.packages("remotes")
-
-remotes::install_github(
-  "kkevin821/survAHadjust",
-  build_vignettes = TRUE,
-  dependencies = TRUE
-)
-
-vignette("survAHadjust", package = "survAHadjust")
 ```
