@@ -169,21 +169,54 @@ adjsurv_aiptw <- aiptw_adjustedsurv(
 
 ## Output
 
-With `conf_int = FALSE`, `adjusted_ahsw()` returns point estimates:
+`adjusted_ahsw()` always returns point estimates in:
 
-```text
+```r
 res$est
 ```
 
-With `conf_int = TRUE`, it also returns bootstrap-based inference:
+The object `res$est` contains RMST, event rate, and AHSW:
 
 ```text
+              group0  group1  difference  log_dif
+rmst
+event_rate
+ahsw
+```
+
+Here, `difference` is:
+
+```text
+group1 - group0
+```
+
+and `log_dif` is:
+
+```text
+log(group1) - log(group0)
+```
+
+For the AHSW row, `exp(log_dif)` gives the ratio of average hazards.
+
+If `conf_int = TRUE` and bootstrap data are available, `adjusted_ahsw()` also returns bootstrap-based inference tables:
+
+```r
 res$rmst
 res$evrt
 res$ahsw
 ```
 
-The `ahsw` output contains:
+Each of these tables contains:
+
+```text
+est
+se
+low
+upp
+p_value
+```
+
+For example, `res$ahsw` contains bootstrap-based inference for group-specific AHSW, the AHSW difference, and the log ratio. The rows of `res$ahsw` are:
 
 ```text
 group0
@@ -192,13 +225,7 @@ difference
 log_dif
 ```
 
-where `log_dif` is the log ratio:
-
-```text
-log(group1) - log(group0)
-```
-
-The ratio can be obtained by:
+The ratio of average hazards can be obtained from the log ratio:
 
 ```r
 exp(res$ahsw["log_dif", "est"])
