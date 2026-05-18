@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 title: "survAHadjust: Adjusted Average Hazard with Survival Weight"
-version: "1.0.0"
+version: "1.0.1"
 type: software
 license: MIT
 authors:
