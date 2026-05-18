@@ -3,6 +3,8 @@
 
 # survAHadjust
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20277581.svg)](https://doi.org/10.5281/zenodo.20277581)
+
 `survAHadjust` calculates average hazard-based summaries from adjusted
 survival curves.
 
@@ -257,4 +259,12 @@ The vignette source file is available in:
 
 ``` text
 vignettes/survAHadjust.Rmd
+```
+
+## Citation
+
+If you use `survAHadjust`, please cite the software DOI from Zenodo:
+
+``` text
+Uno H, Horiguchi M, Xiong H. survAHadjust: Adjusted Average Hazard with Survival Weight. Version 1.0.1. Zenodo. https://doi.org/10.5281/zenodo.20277581
 ```
