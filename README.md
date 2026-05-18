@@ -208,11 +208,25 @@ exp(res$ahsw["log_dif", "est"])
 
 ## Vignette
 
-The vignette source file is available in `vignettes/survAHadjust.Rmd`.
+The vignette source file is available in:
+
+``` text
+vignettes/survAHadjust.Rmd
+```
+
+To preview the vignette without installing the package, open the file in
+RStudio and click **Knit**.
 
 To install the package with the vignette built locally, use:
 
-\`\`\`r remotes::install_github( “kkevin821/survAHadjust”,
-build_vignettes = TRUE, dependencies = TRUE )
+``` r
+install.packages("remotes")
 
-vignette(“survAHadjust”, package = “survAHadjust”)
+remotes::install_github(
+  "kkevin821/survAHadjust",
+  build_vignettes = TRUE,
+  dependencies = TRUE
+)
+
+vignette("survAHadjust", package = "survAHadjust")
+```
