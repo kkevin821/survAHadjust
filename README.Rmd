@@ -25,11 +25,7 @@ adjusted survival curves
 
 For most adjusted survival curve methods, users can first use `adjustedCurves::adjustedsurv()`.
 
-For AIPTW, this package provides a custom function:
-
-```text
-aiptw_adjustedsurv()
-```
+For AIPTW, `survAHadjust` provides `aiptw_adjustedsurv()`.
 
 Both workflows produce an adjusted survival curve object that can be passed to `adjusted_ahsw()`.
 
@@ -115,9 +111,23 @@ ahsw_table(res, method = "Direct standardization")
 
 Other methods from `adjustedCurves::adjustedsurv()` can be used in the same way.
 
-## Custom AIPTW
+## AIPTW
 
-For AIPTW, use `aiptw_adjustedsurv()`.
+AIPTW is a standard doubly robust approach for estimating adjusted survival
+curves. In `survAHadjust`, the function `aiptw_adjustedsurv()` implements the
+AIPTW estimator used in our simulation study and application. The implementation
+follows the AIPTW/IPCW setup described by Ozenne et al. (2020). Under
+independent censoring, the censoring distribution is estimated using a pooled
+Kaplan-Meier estimator; when `covars_cens` is supplied, a Cox model is used for
+the censoring distribution.
+
+For non-AIPTW adjusted survival curve methods, users can use
+`adjustedCurves::adjustedsurv()` and then pass the resulting object to
+`adjusted_ahsw()`.
+
+If users prefer another implementation of AIPTW that returns an adjusted
+survival curve object with `adj`, `time`, `surv`, and `group`, that object can
+also be passed to `adjusted_ahsw()`.
 
 ```r
 adjsurv_aiptw <- aiptw_adjustedsurv(
@@ -196,8 +206,15 @@ exp(res$ahsw["log_dif", "est"])
 
 ## Vignette
 
-See the package vignette for a more complete workflow:
+The vignette source file is available in `vignettes/survAHadjust.Rmd`.
+
+To install the package with the vignette built locally, use:
 
 ```r
-vignette("survAHadjust")
-```
+remotes::install_github(
+  "kkevin821/survAHadjust",
+  build_vignettes = TRUE,
+  dependencies = TRUE
+)
+
+vignette("survAHadjust", package = "survAHadjust")

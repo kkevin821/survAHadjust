@@ -1,6 +1,6 @@
 Package: survAHadjust
 Title: Adjusted Average Hazard with Survival Weight
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Hajime", "Uno", role = "aut",
            comment = c(ORCID = "0000-0003-0622-8471")),
@@ -13,9 +13,9 @@ Authors@R: c(
     )
 Description: Calculates adjusted average hazard with survival weight,
     restricted mean survival time, and event rate from adjusted survival
-    curves for censored time-to-event outcomes. The package also provides
-    a custom augmented inverse probability of treatment weighting estimator
-    for adjusted survival curves.
+    curves for censored time-to-event outcomes. The package also implements
+    the augmented inverse probability of treatment weighting estimator used
+    in the accompanying simulation study and application.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

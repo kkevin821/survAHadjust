@@ -156,11 +156,12 @@ aiptw_to_adjsurv <- function(res){
   return(adjsurv)
 }
 
-#' Estimate adjusted survival curves using custom AIPTW
+#' Estimate adjusted survival curves using AIPTW
 #'
 #' @description
-#' This function applies `aiptw_cif()` and converts its output into an
-#' adjusted survival curve object that can be passed to `adjusted_ahsw()`.
+#' Estimates adjusted survival curves using augmented inverse probability of
+#' treatment weighting (AIPTW). This implementation follows the AIPTW/IPCW
+#' setup used in the simulation study and application.
 #'
 #' @param data A data frame.
 #' @param covars_treat Character vector of covariates for the treatment model.
