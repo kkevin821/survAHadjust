@@ -1,0 +1,21 @@
+citHeader("To cite survAHadjust in publications, please use:")
+
+bibentry(
+  bibtype = "Manual",
+  title = "survAHadjust: Adjusted Average Hazard with Survival Weight",
+  author = c(
+    person("Hajime", "Uno"),
+    person("Miki", "Horiguchi"),
+    person("Hong", "Xiong")
+  ),
+  year = "2026",
+  note = "R package version 1.0.1",
+  url = "https://kkevin821.github.io/survAHadjust/",
+  doi = "10.5281/zenodo.20277581",
+  textVersion = paste(
+    "Uno H, Horiguchi M, Xiong H (2026).",
+    "survAHadjust: Adjusted Average Hazard with Survival Weight.",
+    "R package version 1.0.1.",
+    "Zenodo. https://doi.org/10.5281/zenodo.20277581"
+  )
+)

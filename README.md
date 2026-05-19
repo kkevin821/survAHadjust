@@ -26,14 +26,15 @@ passed to `adjusted_ahsw()`.
 
 ## Installation
 
-After the package is available on GitHub, it can be installed with:
+Install the GitHub version with:
 
 ``` r
 install.packages("pak")
 pak::pak("kkevin821/survAHadjust")
 ```
 
-For local development, install from the package folder with:
+For local development, after cloning the repository and opening the
+package folder in RStudio, install the package locally with:
 
 ``` r
 devtools::install()
