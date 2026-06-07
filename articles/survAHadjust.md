@@ -93,12 +93,15 @@ The result can be formatted using
 
 tab_example <- ahsw_table(res_example, method = "Example")
 
-knitr::kable(tab_example)
+knitr::kable(
+  tab_example,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
-| Method  | Group 0 AH | Group 1 AH | DAH    | RAH   |
-|:--------|:-----------|:-----------|:-------|:------|
-| Example | 0.333      | 0.158      | -0.175 | 0.474 |
+| Method  | Group 0 AH | Group 1 AH |  DAH   |  RAH  |
+|:--------|:----------:|:----------:|:------:|:-----:|
+| Example |   0.333    |   0.158    | -0.175 | 0.474 |
 
 ## Workflow 2: Standard methods from adjustedCurves
 
@@ -139,7 +142,12 @@ res_direct <- adjusted_ahsw(
   conf_int = FALSE
 )
 
-ahsw_table(res_direct, method = "Direct standardization")
+tab_direct <- ahsw_table(res_direct, method = "Direct standardization")
+
+knitr::kable(
+  tab_direct,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
 Other methods from
@@ -215,12 +223,15 @@ Format the result:
 
 tab_aiptw <- ahsw_table(res_aiptw, method = "AIPTW")
 
-knitr::kable(tab_aiptw)
+knitr::kable(
+  tab_aiptw,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
-| Method | Group 0 AH | Group 1 AH | DAH   | RAH   |
-|:-------|:-----------|:-----------|:------|:------|
-| AIPTW  | 0.067      | 0.070      | 0.003 | 1.051 |
+| Method | Group 0 AH | Group 1 AH |  DAH  |  RAH  |
+|:-------|:----------:|:----------:|:-----:|:-----:|
+| AIPTW  |   0.067    |   0.070    | 0.003 | 1.051 |
 
 ## Bootstrap inference
 
@@ -251,11 +262,14 @@ res_aiptw_boot <- adjusted_ahsw(
 
 tab_aiptw_boot <- ahsw_table(res_aiptw_boot, method = "AIPTW")
 
-knitr::kable(tab_aiptw_boot)
+knitr::kable(
+  tab_aiptw_boot,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
-The example above shows the workflow for real analyses. The small
-example below is evaluated to show the structure of the bootstrap output
+The code above shows the workflow for real analyses. The small example
+below is evaluated to show the structure of the bootstrap-based output
 and how the confidence interval level appears in the output column
 names.
 
@@ -313,18 +327,28 @@ The helper function
 [`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
 returns a regular data frame. In rendered documents,
 [`knitr::kable()`](https://rdrr.io/pkg/knitr/man/kable.html) can be used
-to display it as a cleaner table.
+to display it as a cleaner table. The `<br>` tags below control line
+breaks in the column names.
 
 ``` r
 
 tab_boot_90 <- ahsw_table(res_boot_90, method = "Example")
 
-knitr::kable(tab_boot_90)
+knitr::kable(
+  tab_boot_90,
+  align = c("l", "c", "c", "c", "c"),
+  col.names = c(
+    "Method",
+    "Group 0 AH<br>(90% CI)",
+    "Group 1 AH<br>(90% CI)",
+    "DAH<br>(90% CI)",
+    "RAH<br>(90% CI)"
+  ),
+  escape = FALSE
+)
 ```
 
-| Method | Group 0 AH (90% CI) | Group 1 AH (90% CI) | DAH (90% CI) | RAH (90% CI) |
-|:---|:---|:---|:---|:---|
-| Example | 0.333 (0.273 to 0.394) | 0.158 (0.131 to 0.184) | -0.175 (-0.209 to -0.142) | 0.474 (0.467 to 0.480) |
+[TABLE]
 
 ## Combining multiple methods
 
@@ -342,7 +366,10 @@ tab_all <- rbind(
   ahsw_table(res_aiptw, method = "AIPTW")
 )
 
-tab_all
+knitr::kable(
+  tab_all,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
 For the evaluated example in this vignette, we only show the AIPTW row.
@@ -353,9 +380,12 @@ tab_aiptw_only <- rbind(
   ahsw_table(res_aiptw, method = "AIPTW")
 )
 
-knitr::kable(tab_aiptw_only)
+knitr::kable(
+  tab_aiptw_only,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
-| Method | Group 0 AH | Group 1 AH | DAH   | RAH   |
-|:-------|:-----------|:-----------|:------|:------|
-| AIPTW  | 0.067      | 0.070      | 0.003 | 1.051 |
+| Method | Group 0 AH | Group 1 AH |  DAH  |  RAH  |
+|:-------|:----------:|:----------:|:-----:|:-----:|
+| AIPTW  |   0.067    |   0.070    | 0.003 | 1.051 |

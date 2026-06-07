@@ -131,21 +131,24 @@ contains adjusted survival curves in <code>adjsurv$adj</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_example</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab_example</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_example</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Method</th>
-<th align="left">Group 0 AH</th>
-<th align="left">Group 1 AH</th>
-<th align="left">DAH</th>
-<th align="left">RAH</th>
+<th align="center">Group 0 AH</th>
+<th align="center">Group 1 AH</th>
+<th align="center">DAH</th>
+<th align="center">RAH</th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Example</td>
-<td align="left">0.333</td>
-<td align="left">0.158</td>
-<td align="left">-0.175</td>
-<td align="left">0.474</td>
+<td align="center">0.333</td>
+<td align="center">0.158</td>
+<td align="center">-0.175</td>
+<td align="center">0.474</td>
 </tr></tbody>
 </table>
 </div>
@@ -185,7 +188,12 @@ additional dependencies.</p>
 <span>  conf_int <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_direct</span>, method <span class="op">=</span> <span class="st">"Direct standardization"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">tab_direct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_direct</span>, method <span class="op">=</span> <span class="st">"Direct standardization"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_direct</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Other methods from <code><a href="https://robindenz1.github.io/adjustedCurves/reference/adjustedsurv.html" class="external-link">adjustedCurves::adjustedsurv()</a></code> can be
 used in the same way, such as IPTW, matching, empirical likelihood, and
 Kaplan-Meier methods.</p>
@@ -245,21 +253,24 @@ containing columns <code>time</code>, <code>surv</code>, and
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_aiptw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab_aiptw</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_aiptw</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Method</th>
-<th align="left">Group 0 AH</th>
-<th align="left">Group 1 AH</th>
-<th align="left">DAH</th>
-<th align="left">RAH</th>
+<th align="center">Group 0 AH</th>
+<th align="center">Group 1 AH</th>
+<th align="center">DAH</th>
+<th align="center">RAH</th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">AIPTW</td>
-<td align="left">0.067</td>
-<td align="left">0.070</td>
-<td align="left">0.003</td>
-<td align="left">1.051</td>
+<td align="center">0.067</td>
+<td align="center">0.070</td>
+<td align="center">0.003</td>
+<td align="center">1.051</td>
 </tr></tbody>
 </table>
 </div>
@@ -291,11 +302,14 @@ vignette because it can take longer to run.</p>
 <span></span>
 <span><span class="va">tab_aiptw_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw_boot</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab_aiptw_boot</span><span class="op">)</span></span></code></pre></div>
-<p>The example above shows the workflow for real analyses. The small
-example below is evaluated to show the structure of the bootstrap output
-and how the confidence interval level appears in the output column
-names.</p>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_aiptw_boot</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>The code above shows the workflow for real analyses. The small
+example below is evaluated to show the structure of the bootstrap-based
+output and how the confidence interval level appears in the output
+column names.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adjsurv_boot_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>  adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -344,11 +358,23 @@ table columns include <code>Group 0 AH (90% CI)</code>,
 <code>RAH (90% CI)</code>.</p>
 <p>The helper function <code><a href="../reference/ahsw_table.html">ahsw_table()</a></code> returns a regular data
 frame. In rendered documents, <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code> can be used to
-display it as a cleaner table.</p>
+display it as a cleaner table. The <code>&lt;br&gt;</code> tags below
+control line breaks in the column names.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_boot_90</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_boot_90</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab_boot_90</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_boot_90</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
+<span>  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Method"</span>,</span>
+<span>    <span class="st">"Group 0 AH&lt;br&gt;(90% CI)"</span>,</span>
+<span>    <span class="st">"Group 1 AH&lt;br&gt;(90% CI)"</span>,</span>
+<span>    <span class="st">"DAH&lt;br&gt;(90% CI)"</span>,</span>
+<span>    <span class="st">"RAH&lt;br&gt;(90% CI)"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  escape <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="7%">
@@ -359,17 +385,17 @@ display it as a cleaner table.</p>
 </colgroup>
 <thead><tr class="header">
 <th align="left">Method</th>
-<th align="left">Group 0 AH (90% CI)</th>
-<th align="left">Group 1 AH (90% CI)</th>
-<th align="left">DAH (90% CI)</th>
-<th align="left">RAH (90% CI)</th>
+<th align="center">Group 0 AH<br>(90% CI)</th>
+<th align="center">Group 1 AH<br>(90% CI)</th>
+<th align="center">DAH<br>(90% CI)</th>
+<th align="center">RAH<br>(90% CI)</th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Example</td>
-<td align="left">0.333 (0.273 to 0.394)</td>
-<td align="left">0.158 (0.131 to 0.184)</td>
-<td align="left">-0.175 (-0.209 to -0.142)</td>
-<td align="left">0.474 (0.467 to 0.480)</td>
+<td align="center">0.333 (0.273 to 0.394)</td>
+<td align="center">0.158 (0.131 to 0.184)</td>
+<td align="center">-0.175 (-0.209 to -0.142)</td>
+<td align="center">0.474 (0.467 to 0.480)</td>
 </tr></tbody>
 </table>
 </div>
@@ -387,7 +413,10 @@ and AIPTW. It is not evaluated in this vignette because
 <span>  <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">tab_all</span></span></code></pre></div>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_all</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>For the evaluated example in this vignette, we only show the AIPTW
 row.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -395,21 +424,24 @@ row.</p>
 <span>  <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">tab_aiptw_only</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_aiptw_only</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Method</th>
-<th align="left">Group 0 AH</th>
-<th align="left">Group 1 AH</th>
-<th align="left">DAH</th>
-<th align="left">RAH</th>
+<th align="center">Group 0 AH</th>
+<th align="center">Group 1 AH</th>
+<th align="center">DAH</th>
+<th align="center">RAH</th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">AIPTW</td>
-<td align="left">0.067</td>
-<td align="left">0.070</td>
-<td align="left">0.003</td>
-<td align="left">1.051</td>
+<td align="center">0.067</td>
+<td align="center">0.070</td>
+<td align="center">0.003</td>
+<td align="center">1.051</td>
 </tr></tbody>
 </table>
 </div>

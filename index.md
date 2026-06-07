@@ -79,12 +79,15 @@ The result can be formatted as a one-row table:
 
 tab_example <- ahsw_table(res, method = "Example")
 
-knitr::kable(tab_example)
+knitr::kable(
+  tab_example,
+  align = c("l", "c", "c", "c", "c")
+)
 ```
 
-| Method  | Group 0 AH | Group 1 AH | DAH    | RAH   |
-|:--------|:-----------|:-----------|:-------|:------|
-| Example | 0.333      | 0.158      | -0.175 | 0.474 |
+| Method  | Group 0 AH | Group 1 AH |  DAH   |  RAH  |
+|:--------|:----------:|:----------:|:------:|:-----:|
+| Example |   0.333    |   0.158    | -0.175 | 0.474 |
 
 For a cleaner display in R Markdown, Quarto, or pkgdown pages, users can
 pass the output from
@@ -272,12 +275,34 @@ low_90
 high_90
 ```
 
+For example, with `conf_level = 0.90`, the AHSW inference table has the
+following structure:
+
+``` text
+                   est       se     low_90   high_90   p_value
+group0
+group1
+difference
+log_dif
+```
+
+The helper function
+[`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
+uses the confidence interval level in the column names. For example,
+with `conf_level = 0.90`, the formatted table uses column names such as:
+
+``` text
+Group 0 AH (90% CI)
+Group 1 AH (90% CI)
+DAH (90% CI)
+RAH (90% CI)
+```
+
 The `p_value` is reported for `difference` and `log_dif`. The p-values
 for `group0` and `group1` are set to `NA`, because the main comparisons
 are the difference and ratio between groups.
 
-For example, `res$ahsw` gives bootstrap-based inference for AHSW. The
-`log_dif` row is the log ratio of average hazards. When
+The `log_dif` row is the log ratio of average hazards. When
 `conf_level = 0.95`, the ratio and its confidence interval can be
 obtained by exponentiating the log-scale values:
 
@@ -289,13 +314,9 @@ exp(res$ahsw["log_dif", c("est", "low_95", "high_95")])
 If a different confidence level is used, replace `low_95` and `high_95`
 with the corresponding column names.
 
-The helper function
-[`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
-uses these confidence interval column names to label the summary table.
-For example, if the bootstrap inference table contains `low_95` and
-`high_95`, the formatted table will use column names such as
-`Group 0 AH (95% CI)`, `Group 1 AH (95% CI)`, `DAH (95% CI)`, and
-`RAH (95% CI)`.
+A worked example with bootstrap-based confidence intervals, including
+`low_90`, `high_90`, and table columns such as `Group 0 AH (90% CI)`, is
+provided in the vignette.
 
 ## Documentation
 
