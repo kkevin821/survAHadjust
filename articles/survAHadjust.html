@@ -233,12 +233,11 @@ passed to <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></c
 <div class="section level2">
 <h2 id="bootstrap-inference">Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference"></a>
 </h2>
-<p>Bootstrap can be requested by setting
+<p>Bootstrap inference can be requested by setting
 <code>bootstrap = TRUE</code>.</p>
 <p>For real analyses, use a larger number of bootstrap samples, such as
-<code>n_boot = 300</code>.</p>
-<p>The following code is not evaluated in this vignette because it can
-take longer to run.</p>
+<code>n_boot = 300</code>. The following code is not evaluated in this
+vignette because it can take longer to run.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adjsurv_aiptw_boot</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/aiptw_adjustedsurv.html">aiptw_adjustedsurv</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">D</span>,</span>
@@ -258,6 +257,58 @@ take longer to run.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw_boot</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span></code></pre></div>
+<p>The example above shows the workflow for real analyses. The small
+example below is evaluated to show the structure of the bootstrap output
+and how the confidence interval level appears in the output column
+names.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">adjsurv_boot_example</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>  adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>    group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    surv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">0.80</span>, <span class="fl">0.70</span>, <span class="fl">1.0</span>, <span class="fl">0.90</span>, <span class="fl">0.85</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  boot_data <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>      group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      surv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">0.82</span>, <span class="fl">0.72</span>, <span class="fl">1.0</span>, <span class="fl">0.91</span>, <span class="fl">0.86</span><span class="op">)</span>,</span>
+<span>      boot <span class="op">=</span> <span class="fl">1</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>      time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span><span class="op">)</span>,</span>
+<span>      group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      surv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1.0</span>, <span class="fl">0.78</span>, <span class="fl">0.68</span>, <span class="fl">1.0</span>, <span class="fl">0.89</span>, <span class="fl">0.84</span><span class="op">)</span>,</span>
+<span>      boot <span class="op">=</span> <span class="fl">2</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res_boot_90</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/adjusted_ahsw.html">adjusted_ahsw</a></span><span class="op">(</span></span>
+<span>  adjsurv <span class="op">=</span> <span class="va">adjsurv_boot_example</span>,</span>
+<span>  to <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  conf_int <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  conf_level <span class="op">=</span> <span class="fl">0.90</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res_boot_90</span><span class="op">$</span><span class="va">ahsw</span></span>
+<span><span class="co">#&gt;                   est          se     low_90    high_90 p_value</span></span>
+<span><span class="co">#&gt; group0      0.3333333 0.036669323  0.2730177  0.3936490      NA</span></span>
+<span><span class="co">#&gt; group1      0.1578947 0.016062150  0.1314749  0.1843146      NA</span></span>
+<span><span class="co">#&gt; difference -0.1754386 0.020607173 -0.2093344 -0.1415428       0</span></span>
+<span><span class="co">#&gt; log_dif    -0.7472144 0.008270833 -0.7608187 -0.7336101       0</span></span></code></pre></div>
+<p>When <code>conf_level = 0.90</code>, the confidence interval columns
+are named <code>low_90</code> and <code>high_90</code>. Similarly, when
+<code>conf_level = 0.95</code>, the columns are named
+<code>low_95</code> and <code>high_95</code>.</p>
+<p>The helper function <code><a href="../reference/ahsw_table.html">ahsw_table()</a></code> uses these confidence
+interval column names to label the summary table.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_boot_90</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    Method    Group 0 AH (90% CI)    Group 1 AH (90% CI)</span></span>
+<span><span class="co">#&gt; 1 Example 0.333 (0.273 to 0.394) 0.158 (0.131 to 0.184)</span></span>
+<span><span class="co">#&gt;                DAH (90% CI)           RAH (90% CI)</span></span>
+<span><span class="co">#&gt; 1 -0.175 (-0.209 to -0.142) 0.474 (0.467 to 0.480)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="combining-multiple-methods">Combining multiple methods<a class="anchor" aria-label="anchor" href="#combining-multiple-methods"></a>
@@ -267,7 +318,7 @@ take longer to run.</p>
 <p>The following code shows how to combine results from standard methods
 and AIPTW. It is not evaluated in this vignette because
 <code>res_direct</code> is created in a non-evaluated example above.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_all</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_direct</span>, method <span class="op">=</span> <span class="st">"Direct standardization"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
@@ -276,7 +327,7 @@ and AIPTW. It is not evaluated in this vignette because
 <span><span class="va">tab_all</span></span></code></pre></div>
 <p>For the evaluated example in this vignette, we only show the AIPTW
 row.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_aiptw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>

@@ -216,13 +216,11 @@ ahsw_table(res_aiptw, method = "AIPTW")
 
 ## Bootstrap inference
 
-Bootstrap can be requested by setting `bootstrap = TRUE`.
+Bootstrap inference can be requested by setting `bootstrap = TRUE`.
 
 For real analyses, use a larger number of bootstrap samples, such as
-`n_boot = 300`.
-
-The following code is not evaluated in this vignette because it can take
-longer to run.
+`n_boot = 300`. The following code is not evaluated in this vignette
+because it can take longer to run.
 
 ``` r
 
@@ -244,6 +242,67 @@ res_aiptw_boot <- adjusted_ahsw(
 )
 
 ahsw_table(res_aiptw_boot, method = "AIPTW")
+```
+
+The example above shows the workflow for real analyses. The small
+example below is evaluated to show the structure of the bootstrap output
+and how the confidence interval level appears in the output column
+names.
+
+``` r
+
+adjsurv_boot_example <- list(
+  adj = data.frame(
+    time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+    group = factor(c(0, 0, 0, 1, 1, 1)),
+    surv = c(1.0, 0.80, 0.70, 1.0, 0.90, 0.85)
+  ),
+  boot_data = rbind(
+    data.frame(
+      time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+      group = factor(c(0, 0, 0, 1, 1, 1)),
+      surv = c(1.0, 0.82, 0.72, 1.0, 0.91, 0.86),
+      boot = 1
+    ),
+    data.frame(
+      time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+      group = factor(c(0, 0, 0, 1, 1, 1)),
+      surv = c(1.0, 0.78, 0.68, 1.0, 0.89, 0.84),
+      boot = 2
+    )
+  )
+)
+
+res_boot_90 <- adjusted_ahsw(
+  adjsurv = adjsurv_boot_example,
+  to = 1,
+  conf_int = TRUE,
+  conf_level = 0.90
+)
+
+res_boot_90$ahsw
+#>                   est          se     low_90    high_90 p_value
+#> group0      0.3333333 0.036669323  0.2730177  0.3936490      NA
+#> group1      0.1578947 0.016062150  0.1314749  0.1843146      NA
+#> difference -0.1754386 0.020607173 -0.2093344 -0.1415428       0
+#> log_dif    -0.7472144 0.008270833 -0.7608187 -0.7336101       0
+```
+
+When `conf_level = 0.90`, the confidence interval columns are named
+`low_90` and `high_90`. Similarly, when `conf_level = 0.95`, the columns
+are named `low_95` and `high_95`.
+
+The helper function
+[`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
+uses these confidence interval column names to label the summary table.
+
+``` r
+
+ahsw_table(res_boot_90, method = "Example")
+#>    Method    Group 0 AH (90% CI)    Group 1 AH (90% CI)
+#> 1 Example 0.333 (0.273 to 0.394) 0.158 (0.131 to 0.184)
+#>                DAH (90% CI)           RAH (90% CI)
+#> 1 -0.175 (-0.209 to -0.142) 0.474 (0.467 to 0.480)
 ```
 
 ## Combining multiple methods
