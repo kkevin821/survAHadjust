@@ -53,5 +53,5 @@ test_that("aiptw_adjustedsurv bootstrap works with adjusted_ahsw", {
   res <- adjusted_ahsw(adjsurv, to = 5, conf_int = TRUE)
 
   expect_true(all(c("est", "rmst", "evrt", "ahsw") %in% names(res)))
-  expect_true(all(c("est", "se", "low", "upp", "p_value") %in% names(res$ahsw)))
+  expect_true(all(c("est", "se", "low_95", "high_95", "p_value") %in% names(res$ahsw)))
 })

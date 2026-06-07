@@ -18,3 +18,50 @@ test_that("adjusted_ahsw returns correct point estimates", {
   expect_equal(as.numeric(res$est["ahsw", "group0"]), 0.3 / 0.9)
   expect_equal(as.numeric(res$est["ahsw", "group1"]), 0.15 / 0.95)
 })
+
+test_that("adjusted_ahsw names CI columns using conf_level", {
+
+  adjsurv <- list(
+    adj = data.frame(
+      time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+      group = c(0, 0, 0, 1, 1, 1),
+      surv = c(1.0, 0.80, 0.70, 1.0, 0.90, 0.85)
+    ),
+    boot_data = rbind(
+      data.frame(
+        time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+        group = c(0, 0, 0, 1, 1, 1),
+        surv = c(1.0, 0.82, 0.72, 1.0, 0.91, 0.86),
+        boot = 1
+      ),
+      data.frame(
+        time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+        group = c(0, 0, 0, 1, 1, 1),
+        surv = c(1.0, 0.78, 0.68, 1.0, 0.89, 0.84),
+        boot = 2
+      )
+    )
+  )
+
+  res90 <- adjusted_ahsw(
+    adjsurv = adjsurv,
+    to = 1,
+    conf_int = TRUE,
+    conf_level = 0.90
+  )
+
+  expect_true("low_90" %in% names(res90$ahsw))
+  expect_true("high_90" %in% names(res90$ahsw))
+  expect_false("low" %in% names(res90$ahsw))
+  expect_false("upp" %in% names(res90$ahsw))
+
+  res95 <- adjusted_ahsw(
+    adjsurv = adjsurv,
+    to = 1,
+    conf_int = TRUE,
+    conf_level = 0.95
+  )
+
+  expect_true("low_95" %in% names(res95$ahsw))
+  expect_true("high_95" %in% names(res95$ahsw))
+})

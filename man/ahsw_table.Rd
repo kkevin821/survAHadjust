@@ -24,7 +24,9 @@ ahsw_table(
 \item{digits}{Number of digits to display.}
 }
 \value{
-A one-row data frame.
+A one-row data frame. If bootstrap-based inference is available,
+confidence interval levels are shown in the column names, for example
+\verb{Group 0 AH (95\% CI)} and \verb{RAH (95\% CI)}.
 }
 \description{
 Format the output from \code{adjusted_ahsw()} into a one-row summary table.

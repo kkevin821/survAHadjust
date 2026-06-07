@@ -4,18 +4,16 @@ bibentry(
   bibtype = "Manual",
   title = "survAHadjust: Adjusted Average Hazard with Survival Weight",
   author = c(
-    person("Hajime", "Uno"),
-    person("Miki", "Horiguchi"),
-    person("Hong", "Xiong")
+    person("Hong", "Xiong"),
+    person("Hajime", "Uno")
   ),
   year = "2026",
-  note = "R package version 1.0.1",
+  note = "R package version 1.0.2",
   url = "https://kkevin821.github.io/survAHadjust/",
-  doi = "10.5281/zenodo.20277581",
+  doi = "10.5281/zenodo.20277580",
   textVersion = paste(
-    "Uno H, Horiguchi M, Xiong H (2026).",
+    "Xiong H, Uno H (2026).",
     "survAHadjust: Adjusted Average Hazard with Survival Weight.",
-    "R package version 1.0.1.",
-    "Zenodo. https://doi.org/10.5281/zenodo.20277581"
+    "Zenodo. https://doi.org/10.5281/zenodo.20277580"
   )
 )

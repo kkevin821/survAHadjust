@@ -8,3 +8,5 @@ Meta/
 output/
 *.zip
 __MACOSX/
+.Rhistory
+_problems/
