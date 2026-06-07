@@ -73,10 +73,17 @@ res$est
 The result can be formatted as a one-row table:
 
 ``` r
-ahsw_table(res, method = "Example")
-#>    Method Group 0 AH Group 1 AH    DAH   RAH
-#> 1 Example      0.333      0.158 -0.175 0.474
+tab_example <- ahsw_table(res, method = "Example")
+
+knitr::kable(tab_example)
 ```
+
+| Method  | Group 0 AH | Group 1 AH | DAH    | RAH   |
+|:--------|:-----------|:-----------|:-------|:------|
+| Example | 0.333      | 0.158      | -0.175 | 0.474 |
+
+For a cleaner display in R Markdown, Quarto, or pkgdown pages, users can
+pass the output from `ahsw_table()` to `knitr::kable()`.
 
 ## Standard adjusted survival curve methods
 

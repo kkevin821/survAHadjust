@@ -82,7 +82,9 @@ res_example$est
 The result can be formatted using `ahsw_table()`.
 
 ```{r fake-table}
-ahsw_table(res_example, method = "Example")
+tab_example <- ahsw_table(res_example, method = "Example")
+
+knitr::kable(tab_example)
 ```
 
 # Workflow 2: Standard methods from adjustedCurves
@@ -138,8 +140,8 @@ For non-AIPTW adjusted survival curve methods, users can use
 `adjusted_ahsw()`.
 
 If users prefer another implementation of AIPTW that returns an adjusted
-survival curve object with `adj`, `time`, `surv`, and `group`, that object can
-also be passed to `adjusted_ahsw()`.
+survival curve object with an `adj` element containing columns `time`, `surv`,
+and `group`, that object can also be passed to `adjusted_ahsw()`.
 
 ```{r aiptw}
 adjsurv_aiptw <- aiptw_adjustedsurv(
@@ -170,7 +172,9 @@ res_aiptw$est
 Format the result:
 
 ```{r aiptw-table}
-ahsw_table(res_aiptw, method = "AIPTW")
+tab_aiptw <- ahsw_table(res_aiptw, method = "AIPTW")
+
+knitr::kable(tab_aiptw)
 ```
 
 # Bootstrap inference
@@ -197,7 +201,9 @@ res_aiptw_boot <- adjusted_ahsw(
   conf_int = TRUE
 )
 
-ahsw_table(res_aiptw_boot, method = "AIPTW")
+tab_aiptw_boot <- ahsw_table(res_aiptw_boot, method = "AIPTW")
+
+knitr::kable(tab_aiptw_boot)
 ```
 
 The example above shows the workflow for real analyses. The small example below is evaluated to show the structure of the bootstrap output and how the confidence interval level appears in the output column names.
@@ -237,10 +243,14 @@ res_boot_90$ahsw
 
 When `conf_level = 0.90`, the confidence interval columns are named `low_90` and `high_90`. Similarly, when `conf_level = 0.95`, the columns are named `low_95` and `high_95`.
 
-The helper function `ahsw_table()` uses these confidence interval column names to label the summary table.
+The helper function `ahsw_table()` uses these confidence interval column names to label the summary table. For example, because the object above was created with `conf_level = 0.90`, the table columns include `Group 0 AH (90% CI)`, `Group 1 AH (90% CI)`, `DAH (90% CI)`, and `RAH (90% CI)`.
+
+The helper function `ahsw_table()` returns a regular data frame. In rendered documents, `knitr::kable()` can be used to display it as a cleaner table.
 
 ```{r ci-level-table-example}
-ahsw_table(res_boot_90, method = "Example")
+tab_boot_90 <- ahsw_table(res_boot_90, method = "Example")
+
+knitr::kable(tab_boot_90)
 ```
 
 # Combining multiple methods
@@ -261,9 +271,9 @@ tab_all
 For the evaluated example in this vignette, we only show the AIPTW row.
 
 ```{r combine-aiptw-only}
-tab_aiptw <- rbind(
+tab_aiptw_only <- rbind(
   ahsw_table(res_aiptw, method = "AIPTW")
 )
 
-tab_aiptw
+knitr::kable(tab_aiptw_only)
 ```
