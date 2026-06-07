@@ -77,7 +77,7 @@ tab_example <- ahsw_table(res, method = "Example")
 
 knitr::kable(
   tab_example,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_example) - 1))
 )
 ```
 
