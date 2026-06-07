@@ -134,9 +134,12 @@ For non-AIPTW adjusted survival curve methods, users can use
 `adjustedCurves::adjustedsurv()` and then pass the resulting object to
 `adjusted_ahsw()`.
 
-If users prefer another implementation of AIPTW that returns an adjusted
-survival curve object with `adj`, `time`, `surv`, and `group`, that object can
-also be passed to `adjusted_ahsw()`.
+If users prefer another implementation of AIPTW, they can also use that output
+with `adjusted_ahsw()` as long as it is formatted as an adjusted survival curve
+object with an `adj` element containing columns `time`, `surv`, and `group`.
+
+For bootstrap-based confidence intervals, the object should also contain
+`boot_data` with columns `time`, `surv`, `group`, and `boot`.
 
 ```r
 adjsurv_aiptw <- aiptw_adjustedsurv(
