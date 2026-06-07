@@ -91,10 +91,14 @@ The result can be formatted using
 
 ``` r
 
-ahsw_table(res_example, method = "Example")
-#>    Method Group 0 AH Group 1 AH    DAH   RAH
-#> 1 Example      0.333      0.158 -0.175 0.474
+tab_example <- ahsw_table(res_example, method = "Example")
+
+knitr::kable(tab_example)
 ```
+
+| Method  | Group 0 AH | Group 1 AH | DAH    | RAH   |
+|:--------|:-----------|:-----------|:-------|:------|
+| Example | 0.333      | 0.158      | -0.175 | 0.474 |
 
 ## Workflow 2: Standard methods from adjustedCurves
 
@@ -161,8 +165,8 @@ and then pass the resulting object to
 [`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
 
 If users prefer another implementation of AIPTW that returns an adjusted
-survival curve object with `adj`, `time`, `surv`, and `group`, that
-object can also be passed to
+survival curve object with an `adj` element containing columns `time`,
+`surv`, and `group`, that object can also be passed to
 [`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
 
 ``` r
@@ -209,10 +213,14 @@ Format the result:
 
 ``` r
 
-ahsw_table(res_aiptw, method = "AIPTW")
-#>   Method Group 0 AH Group 1 AH   DAH   RAH
-#> 1  AIPTW      0.067      0.070 0.003 1.051
+tab_aiptw <- ahsw_table(res_aiptw, method = "AIPTW")
+
+knitr::kable(tab_aiptw)
 ```
+
+| Method | Group 0 AH | Group 1 AH | DAH   | RAH   |
+|:-------|:-----------|:-----------|:------|:------|
+| AIPTW  | 0.067      | 0.070      | 0.003 | 1.051 |
 
 ## Bootstrap inference
 
@@ -241,7 +249,9 @@ res_aiptw_boot <- adjusted_ahsw(
   conf_int = TRUE
 )
 
-ahsw_table(res_aiptw_boot, method = "AIPTW")
+tab_aiptw_boot <- ahsw_table(res_aiptw_boot, method = "AIPTW")
+
+knitr::kable(tab_aiptw_boot)
 ```
 
 The example above shows the workflow for real analyses. The small
@@ -295,15 +305,26 @@ are named `low_95` and `high_95`.
 The helper function
 [`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
 uses these confidence interval column names to label the summary table.
+For example, because the object above was created with
+`conf_level = 0.90`, the table columns include `Group 0 AH (90% CI)`,
+`Group 1 AH (90% CI)`, `DAH (90% CI)`, and `RAH (90% CI)`.
+
+The helper function
+[`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
+returns a regular data frame. In rendered documents,
+[`knitr::kable()`](https://rdrr.io/pkg/knitr/man/kable.html) can be used
+to display it as a cleaner table.
 
 ``` r
 
-ahsw_table(res_boot_90, method = "Example")
-#>    Method    Group 0 AH (90% CI)    Group 1 AH (90% CI)
-#> 1 Example 0.333 (0.273 to 0.394) 0.158 (0.131 to 0.184)
-#>                DAH (90% CI)           RAH (90% CI)
-#> 1 -0.175 (-0.209 to -0.142) 0.474 (0.467 to 0.480)
+tab_boot_90 <- ahsw_table(res_boot_90, method = "Example")
+
+knitr::kable(tab_boot_90)
 ```
+
+| Method | Group 0 AH (90% CI) | Group 1 AH (90% CI) | DAH (90% CI) | RAH (90% CI) |
+|:---|:---|:---|:---|:---|
+| Example | 0.333 (0.273 to 0.394) | 0.158 (0.131 to 0.184) | -0.175 (-0.209 to -0.142) | 0.474 (0.467 to 0.480) |
 
 ## Combining multiple methods
 
@@ -328,11 +349,13 @@ For the evaluated example in this vignette, we only show the AIPTW row.
 
 ``` r
 
-tab_aiptw <- rbind(
+tab_aiptw_only <- rbind(
   ahsw_table(res_aiptw, method = "AIPTW")
 )
 
-tab_aiptw
-#>   Method Group 0 AH Group 1 AH   DAH   RAH
-#> 1  AIPTW      0.067      0.070 0.003 1.051
+knitr::kable(tab_aiptw_only)
 ```
+
+| Method | Group 0 AH | Group 1 AH | DAH   | RAH   |
+|:-------|:-----------|:-----------|:------|:------|
+| AIPTW  | 0.067      | 0.070      | 0.003 | 1.051 |
