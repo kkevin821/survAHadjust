@@ -175,11 +175,9 @@ ahsw_table(res_aiptw, method = "AIPTW")
 
 # Bootstrap inference
 
-Bootstrap can be requested by setting `bootstrap = TRUE`.
+Bootstrap inference can be requested by setting `bootstrap = TRUE`.
 
-For real analyses, use a larger number of bootstrap samples, such as `n_boot = 300`.
-
-The following code is not evaluated in this vignette because it can take longer to run.
+For real analyses, use a larger number of bootstrap samples, such as `n_boot = 300`. The following code is not evaluated in this vignette because it can take longer to run.
 
 ```{r bootstrap-example, eval = FALSE}
 adjsurv_aiptw_boot <- aiptw_adjustedsurv(
@@ -200,6 +198,49 @@ res_aiptw_boot <- adjusted_ahsw(
 )
 
 ahsw_table(res_aiptw_boot, method = "AIPTW")
+```
+
+The example above shows the workflow for real analyses. The small example below is evaluated to show the structure of the bootstrap output and how the confidence interval level appears in the output column names.
+
+```{r ci-level-example}
+adjsurv_boot_example <- list(
+  adj = data.frame(
+    time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+    group = factor(c(0, 0, 0, 1, 1, 1)),
+    surv = c(1.0, 0.80, 0.70, 1.0, 0.90, 0.85)
+  ),
+  boot_data = rbind(
+    data.frame(
+      time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+      group = factor(c(0, 0, 0, 1, 1, 1)),
+      surv = c(1.0, 0.82, 0.72, 1.0, 0.91, 0.86),
+      boot = 1
+    ),
+    data.frame(
+      time = c(0, 0.5, 1.0, 0, 0.5, 1.0),
+      group = factor(c(0, 0, 0, 1, 1, 1)),
+      surv = c(1.0, 0.78, 0.68, 1.0, 0.89, 0.84),
+      boot = 2
+    )
+  )
+)
+
+res_boot_90 <- adjusted_ahsw(
+  adjsurv = adjsurv_boot_example,
+  to = 1,
+  conf_int = TRUE,
+  conf_level = 0.90
+)
+
+res_boot_90$ahsw
+```
+
+When `conf_level = 0.90`, the confidence interval columns are named `low_90` and `high_90`. Similarly, when `conf_level = 0.95`, the columns are named `low_95` and `high_95`.
+
+The helper function `ahsw_table()` uses these confidence interval column names to label the summary table.
+
+```{r ci-level-table-example}
+ahsw_table(res_boot_90, method = "Example")
 ```
 
 # Combining multiple methods
