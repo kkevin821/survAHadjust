@@ -95,7 +95,7 @@ tab_example <- ahsw_table(res_example, method = "Example")
 
 knitr::kable(
   tab_example,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_example) - 1))
 )
 ```
 
@@ -146,7 +146,7 @@ tab_direct <- ahsw_table(res_direct, method = "Direct standardization")
 
 knitr::kable(
   tab_direct,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_direct) - 1))
 )
 ```
 
@@ -172,10 +172,14 @@ For non-AIPTW adjusted survival curve methods, users can use
 and then pass the resulting object to
 [`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
 
-If users prefer another implementation of AIPTW that returns an adjusted
-survival curve object with an `adj` element containing columns `time`,
-`surv`, and `group`, that object can also be passed to
-[`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
+If users prefer another implementation of AIPTW, they can also use that
+output with
+[`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md)
+as long as it is formatted as an adjusted survival curve object with an
+`adj` element containing columns `time`, `surv`, and `group`.
+
+For bootstrap-based confidence intervals, the object should also contain
+`boot_data` with columns `time`, `surv`, `group`, and `boot`.
 
 ``` r
 
@@ -225,7 +229,7 @@ tab_aiptw <- ahsw_table(res_aiptw, method = "AIPTW")
 
 knitr::kable(
   tab_aiptw,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_aiptw) - 1))
 )
 ```
 
@@ -264,7 +268,7 @@ tab_aiptw_boot <- ahsw_table(res_aiptw_boot, method = "AIPTW")
 
 knitr::kable(
   tab_aiptw_boot,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_aiptw_boot) - 1))
 )
 ```
 
@@ -327,23 +331,30 @@ The helper function
 [`ahsw_table()`](https://kkevin821.github.io/survAHadjust/reference/ahsw_table.md)
 returns a regular data frame. In rendered documents,
 [`knitr::kable()`](https://rdrr.io/pkg/knitr/man/kable.html) can be used
-to display it as a cleaner table. The `<br>` tags below control line
-breaks in the column names.
+to display it as a cleaner table. In the example below, line breaks are
+added only for display so that the point estimate and confidence
+interval appear on separate lines.
 
 ``` r
 
 tab_boot_90 <- ahsw_table(res_boot_90, method = "Example")
 
+tab_boot_90_display <- tab_boot_90
+
+names(tab_boot_90_display) <- sub(
+  " \\(",
+  "<br>(",
+  names(tab_boot_90_display)
+)
+
+tab_boot_90_display[-1] <- lapply(
+  tab_boot_90_display[-1],
+  function(x) sub(" \\(", "<br>(", x)
+)
+
 knitr::kable(
-  tab_boot_90,
-  align = c("l", "c", "c", "c", "c"),
-  col.names = c(
-    "Method",
-    "Group 0 AH<br>(90% CI)",
-    "Group 1 AH<br>(90% CI)",
-    "DAH<br>(90% CI)",
-    "RAH<br>(90% CI)"
-  ),
+  tab_boot_90_display,
+  align = c("l", rep("c", ncol(tab_boot_90_display) - 1)),
   escape = FALSE
 )
 ```
@@ -368,7 +379,7 @@ tab_all <- rbind(
 
 knitr::kable(
   tab_all,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_all) - 1))
 )
 ```
 
@@ -382,7 +393,7 @@ tab_aiptw_only <- rbind(
 
 knitr::kable(
   tab_aiptw_only,
-  align = c("l", "c", "c", "c", "c")
+  align = c("l", rep("c", ncol(tab_aiptw_only) - 1))
 )
 ```
 

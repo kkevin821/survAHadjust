@@ -133,7 +133,7 @@ contains adjusted survival curves in <code>adjsurv$adj</code>.</p>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_example</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_example</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -192,7 +192,7 @@ additional dependencies.</p>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_direct</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_direct</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>Other methods from <code><a href="https://robindenz1.github.io/adjustedCurves/reference/adjustedsurv.html" class="external-link">adjustedCurves::adjustedsurv()</a></code> can be
 used in the same way, such as IPTW, matching, empirical likelihood, and
@@ -212,11 +212,14 @@ model is used for the censoring distribution.</p>
 <p>For non-AIPTW adjusted survival curve methods, users can use
 <code><a href="https://robindenz1.github.io/adjustedCurves/reference/adjustedsurv.html" class="external-link">adjustedCurves::adjustedsurv()</a></code> and then pass the resulting
 object to <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code>.</p>
-<p>If users prefer another implementation of AIPTW that returns an
-adjusted survival curve object with an <code>adj</code> element
+<p>If users prefer another implementation of AIPTW, they can also use
+that output with <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code> as long as it is formatted
+as an adjusted survival curve object with an <code>adj</code> element
 containing columns <code>time</code>, <code>surv</code>, and
-<code>group</code>, that object can also be passed to
-<code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code>.</p>
+<code>group</code>.</p>
+<p>For bootstrap-based confidence intervals, the object should also
+contain <code>boot_data</code> with columns <code>time</code>,
+<code>surv</code>, <code>group</code>, and <code>boot</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">adjsurv_aiptw</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/aiptw_adjustedsurv.html">aiptw_adjustedsurv</a></span><span class="op">(</span></span>
 <span>  data <span class="op">=</span> <span class="va">D</span>,</span>
@@ -255,7 +258,7 @@ containing columns <code>time</code>, <code>surv</code>, and
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_aiptw</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_aiptw</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -304,7 +307,7 @@ vignette because it can take longer to run.</p>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_aiptw_boot</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_aiptw_boot</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>The code above shows the workflow for real analyses. The small
 example below is evaluated to show the structure of the bootstrap-based
@@ -358,26 +361,33 @@ table columns include <code>Group 0 AH (90% CI)</code>,
 <code>RAH (90% CI)</code>.</p>
 <p>The helper function <code><a href="../reference/ahsw_table.html">ahsw_table()</a></code> returns a regular data
 frame. In rendered documents, <code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code> can be used to
-display it as a cleaner table. The <code>&lt;br&gt;</code> tags below
-control line breaks in the column names.</p>
+display it as a cleaner table. In the example below, line breaks are
+added only for display so that the point estimate and confidence
+interval appear on separate lines.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tab_boot_90</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_boot_90</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="va">tab_boot_90_display</span> <span class="op">&lt;-</span> <span class="va">tab_boot_90</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tab_boot_90_display</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span></span>
+<span>  <span class="st">" \\("</span>,</span>
+<span>  <span class="st">"&lt;br&gt;("</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">tab_boot_90_display</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">tab_boot_90_display</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
+<span>  <span class="va">tab_boot_90_display</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" \\("</span>, <span class="st">"&lt;br&gt;("</span>, <span class="va">x</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
-<span>  <span class="va">tab_boot_90</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span>,</span>
-<span>  col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Method"</span>,</span>
-<span>    <span class="st">"Group 0 AH&lt;br&gt;(90% CI)"</span>,</span>
-<span>    <span class="st">"Group 1 AH&lt;br&gt;(90% CI)"</span>,</span>
-<span>    <span class="st">"DAH&lt;br&gt;(90% CI)"</span>,</span>
-<span>    <span class="st">"RAH&lt;br&gt;(90% CI)"</span></span>
-<span>  <span class="op">)</span>,</span>
+<span>  <span class="va">tab_boot_90_display</span>,</span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_boot_90_display</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  escape <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="7%">
+<col width="6%">
 <col width="22%">
 <col width="22%">
 <col width="25%">
@@ -392,10 +402,10 @@ control line breaks in the column names.</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">Example</td>
-<td align="center">0.333 (0.273 to 0.394)</td>
-<td align="center">0.158 (0.131 to 0.184)</td>
-<td align="center">-0.175 (-0.209 to -0.142)</td>
-<td align="center">0.474 (0.467 to 0.480)</td>
+<td align="center">0.333<br>(0.273 to 0.394)</td>
+<td align="center">0.158<br>(0.131 to 0.184)</td>
+<td align="center">-0.175<br>(-0.209 to -0.142)</td>
+<td align="center">0.474<br>(0.467 to 0.480)</td>
 </tr></tbody>
 </table>
 </div>
@@ -415,7 +425,7 @@ and AIPTW. It is not evaluated in this vignette because
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_all</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_all</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>For the evaluated example in this vignette, we only show the AIPTW
 row.</p>
@@ -426,7 +436,7 @@ row.</p>
 <span></span>
 <span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span></span>
 <span>  <span class="va">tab_aiptw_only</span>,</span>
-<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span>, <span class="st">"c"</span><span class="op">)</span></span>
+<span>  align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">"c"</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">tab_aiptw_only</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
