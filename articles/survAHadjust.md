@@ -92,8 +92,8 @@ The result can be formatted using
 ``` r
 
 ahsw_table(res_example, method = "Example")
-#>    Method Group 0 Group 1 Difference Ratio
-#> 1 Example   0.333   0.158     -0.175 0.474
+#>    Method Group 0 AH Group 1 AH    DAH   RAH
+#> 1 Example      0.333      0.158 -0.175 0.474
 ```
 
 ## Workflow 2: Standard methods from adjustedCurves
@@ -210,8 +210,8 @@ Format the result:
 ``` r
 
 ahsw_table(res_aiptw, method = "AIPTW")
-#>   Method Group 0 Group 1 Difference Ratio
-#> 1  AIPTW   0.067   0.070      0.003 1.051
+#>   Method Group 0 AH Group 1 AH   DAH   RAH
+#> 1  AIPTW      0.067      0.070 0.003 1.051
 ```
 
 ## Bootstrap inference
@@ -274,6 +274,6 @@ tab_aiptw <- rbind(
 )
 
 tab_aiptw
-#>   Method Group 0 Group 1 Difference Ratio
-#> 1  AIPTW   0.067   0.070      0.003 1.051
+#>   Method Group 0 AH Group 1 AH   DAH   RAH
+#> 1  AIPTW      0.067      0.070 0.003 1.051
 ```

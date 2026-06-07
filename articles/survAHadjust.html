@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">survAHadjust</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,8 +130,8 @@ contains adjusted survival curves in <code>adjsurv$adj</code>.</p>
 <p>The result can be formatted using <code><a href="../reference/ahsw_table.html">ahsw_table()</a></code>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_example</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;    Method Group 0 Group 1 Difference Ratio</span></span>
-<span><span class="co">#&gt; 1 Example   0.333   0.158     -0.175 0.474</span></span></code></pre></div>
+<span><span class="co">#&gt;    Method Group 0 AH Group 1 AH    DAH   RAH</span></span>
+<span><span class="co">#&gt; 1 Example      0.333      0.158 -0.175 0.474</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="workflow-2-standard-methods-from-adjustedcurves">Workflow 2: Standard methods from adjustedCurves<a class="anchor" aria-label="anchor" href="#workflow-2-standard-methods-from-adjustedcurves"></a>
@@ -227,8 +227,8 @@ passed to <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></c
 <p>Format the result:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ahsw_table.html">ahsw_table</a></span><span class="op">(</span><span class="va">res_aiptw</span>, method <span class="op">=</span> <span class="st">"AIPTW"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   Method Group 0 Group 1 Difference Ratio</span></span>
-<span><span class="co">#&gt; 1  AIPTW   0.067   0.070      0.003 1.051</span></span></code></pre></div>
+<span><span class="co">#&gt;   Method Group 0 AH Group 1 AH   DAH   RAH</span></span>
+<span><span class="co">#&gt; 1  AIPTW      0.067      0.070 0.003 1.051</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="bootstrap-inference">Bootstrap inference<a class="anchor" aria-label="anchor" href="#bootstrap-inference"></a>
@@ -282,8 +282,8 @@ row.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">tab_aiptw</span></span>
-<span><span class="co">#&gt;   Method Group 0 Group 1 Difference Ratio</span></span>
-<span><span class="co">#&gt; 1  AIPTW   0.067   0.070      0.003 1.051</span></span></code></pre></div>
+<span><span class="co">#&gt;   Method Group 0 AH Group 1 AH   DAH   RAH</span></span>
+<span><span class="co">#&gt; 1  AIPTW      0.067      0.070 0.003 1.051</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -292,7 +292,7 @@ row.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Hajime Uno, Miki Horiguchi, Hong Xiong.</p>
+  <p>Developed by Hong Xiong, Hajime Uno.</p>
 </div>
 
 <div class="pkgdown-footer-right">

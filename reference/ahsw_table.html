@@ -11,7 +11,7 @@ AH difference, and AH ratio."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">survAHadjust</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +79,9 @@ AH difference, and AH ratio.</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A one-row data frame.</p>
+    <p>A one-row data frame. If bootstrap-based inference is available,
+confidence interval levels are shown in the column names, for example
+<code>Group 0 AH (95% CI)</code> and <code>RAH (95% CI)</code>.</p>
     </div>
 
     <div class="section level2">
@@ -94,8 +96,8 @@ AH difference, and AH ratio.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="adjusted_ahsw.html">adjusted_ahsw</a></span><span class="op">(</span><span class="va">adjsurv</span>, to <span class="op">=</span> <span class="fl">1</span>, conf_int <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">ahsw_table</span><span class="op">(</span><span class="va">res</span>, method <span class="op">=</span> <span class="st">"Example"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Method Group 0 Group 1 Difference Ratio</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Example   0.333   0.158     -0.175 0.474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Method Group 0 AH Group 1 AH    DAH   RAH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Example      0.333      0.158 -0.175 0.474</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -104,7 +106,7 @@ AH difference, and AH ratio.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Hajime Uno, Miki Horiguchi, Hong Xiong.</p>
+  <p>Developed by Hong Xiong, Hajime Uno.</p>
 </div>
 
 <div class="pkgdown-footer-right">

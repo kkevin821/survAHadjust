@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2026 Hajime Uno, Miki Horiguchi, and Hong Xiong
+Copyright (c) 2026 Hong Xiong and Hajime Uno
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the

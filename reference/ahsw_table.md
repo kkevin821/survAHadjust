@@ -42,7 +42,9 @@ ahsw_table(
 
 ## Value
 
-A one-row data frame.
+A one-row data frame. If bootstrap-based inference is available,
+confidence interval levels are shown in the column names, for example
+`Group 0 AH (95% CI)` and `RAH (95% CI)`.
 
 ## Examples
 
@@ -57,6 +59,6 @@ adjsurv <- list(
 
 res <- adjusted_ahsw(adjsurv, to = 1, conf_int = FALSE)
 ahsw_table(res, method = "Example")
-#>    Method Group 0 Group 1 Difference Ratio
-#> 1 Example   0.333   0.158     -0.175 0.474
+#>    Method Group 0 AH Group 1 AH    DAH   RAH
+#> 1 Example      0.333      0.158 -0.175 0.474
 ```
