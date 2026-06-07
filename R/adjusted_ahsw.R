@@ -55,9 +55,12 @@ ahsw.calc=function(time, surv, tau=NA){
 #' @title Adjusted Average Hazard with Survival Weight (AHSW)
 #' @description Calculate Adjusted Average Hazard with Survival Weight (AHSW), RMST, and Event Rate.
 #' @details It also calculates confidence intervals and p-values using bootstrapped standard errors.
-#' @author Hajime Uno, Miki Horiguchi, Hong Xiong
+#' @author Hong Xiong, Hajime Uno
 #' @references
-#' Uno H and Horiguchi M. Ratio and difference of average hazard with survival weight: new measures to quantify survival benefit of new therapy. Statistics in Medicine. 2023;1-17. \doi{10.1002/sim.9651}
+#' Xiong H, Connors J, Schrag D, and Uno H. Comparative effectiveness
+#' research with average hazard for censored time-to-event outcomes:
+#' simulation study and application to observational data. BMC Medical
+#' Research Methodology. 2026;26:13. \doi{10.1186/s12874-025-02741-9}
 #' @usage adjusted_ahsw(adjsurv, to, from=0, conf_int=FALSE, conf_level=0.95)
 #' @param adjsurv A list object resulting from an adjusted survival analysis
 #'   containing survival probabilities (`adjsurv$adj`) and optionally bootstrap
@@ -68,7 +71,10 @@ ahsw.calc=function(time, surv, tau=NA){
 #' @param conf_level Numeric. Confidence level for intervals (default 0.95).
 #' @return A list containing:
 #' \item{est}{A data frame with point estimates of RMST, event rate, and AHSW for two groups, their difference, and log difference.}
-#' \item{rmst}{A data frame with bootstrap-based estimates, standard errors, confidence intervals, and p-values for RMST.}
+#' \item{rmst}{A data frame with bootstrap-based estimates, standard errors,
+#' confidence intervals, and p-values for RMST. Confidence interval columns
+#' are named according to `conf_level`, for example `low_95` and `high_95`
+#' when `conf_level = 0.95`.}
 #' \item{evrt}{Similar results as `rmst` but for event rate.}
 #' \item{ahsw}{Similar results as `rmst` but for AHSW.}
 #' @examples
@@ -186,27 +192,36 @@ adjusted_ahsw <- function(adjsurv, to, from=0, conf_int=FALSE, conf_level=0.95){
     out_evrt = data.frame(est=t(out[2,]), se=se_evrt)
     out_ahsw = data.frame(est=t(out[3,]), se=se_ahsw)
 
+    #--- CI column names based on confidence level ---
+    ci_level <- conf_level * 100
+    ci_level <- format(ci_level, trim = TRUE, scientific = FALSE)
+    ci_level <- sub("\\.0+$", "", ci_level)
+    ci_level <- gsub("\\.", "_", ci_level)
+
+    low_col <- paste0("low_", ci_level)
+    high_col <- paste0("high_", ci_level)
+
     #--- add CI to the output -------
     tt = out_rmst;
     colnames(tt)=c("est","se")
-    tt$low = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
-    tt$upp = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[low_col]] = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[high_col]] = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
     tt$p_value = (1-pnorm(abs(tt$est/tt$se)))*2
     tt$p_value[1:2]=NA
     out_rmst = tt;
 
     tt = out_evrt;
     colnames(tt)=c("est","se")
-    tt$low = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
-    tt$upp = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[low_col]] = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[high_col]] = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
     tt$p_value = (1-pnorm(abs(tt$est/tt$se)))*2
     tt$p_value[1:2]=NA
     out_evrt = tt;
 
     tt = out_ahsw;
     colnames(tt)=c("est","se")
-    tt$low = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
-    tt$upp = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[low_col]] = tt$est - qnorm(1-(1-conf_level)/2)*tt$se
+    tt[[high_col]] = tt$est + qnorm(1-(1-conf_level)/2)*tt$se
     tt$p_value = (1-pnorm(abs(tt$est/tt$se)))*2
     tt$p_value[1:2]=NA
     out_ahsw = tt;

@@ -22,7 +22,10 @@ data (\code{adjsurv$boot_data}).}
 \value{
 A list containing:
 \item{est}{A data frame with point estimates of RMST, event rate, and AHSW for two groups, their difference, and log difference.}
-\item{rmst}{A data frame with bootstrap-based estimates, standard errors, confidence intervals, and p-values for RMST.}
+\item{rmst}{A data frame with bootstrap-based estimates, standard errors,
+confidence intervals, and p-values for RMST. Confidence interval columns
+are named according to \code{conf_level}, for example \code{low_95} and \code{high_95}
+when \code{conf_level = 0.95}.}
 \item{evrt}{Similar results as \code{rmst} but for event rate.}
 \item{ahsw}{Similar results as \code{rmst} but for AHSW.}
 }
@@ -45,8 +48,11 @@ adjusted_ahsw(adjsurv, to = 1, conf_int = FALSE)
 
 }
 \references{
-Uno H and Horiguchi M. Ratio and difference of average hazard with survival weight: new measures to quantify survival benefit of new therapy. Statistics in Medicine. 2023;1-17. \doi{10.1002/sim.9651}
+Xiong H, Connors J, Schrag D, and Uno H. Comparative effectiveness
+research with average hazard for censored time-to-event outcomes:
+simulation study and application to observational data. BMC Medical
+Research Methodology. 2026;26:13. \doi{10.1186/s12874-025-02741-9}
 }
 \author{
-Hajime Uno, Miki Horiguchi, Hong Xiong
+Hong Xiong, Hajime Uno
 }

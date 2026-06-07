@@ -11,7 +11,9 @@
 #' @param group1_name Column name for group 1.
 #' @param digits Number of digits to display.
 #'
-#' @return A one-row data frame.
+#' @return A one-row data frame. If bootstrap-based inference is available,
+#'   confidence interval levels are shown in the column names, for example
+#'   `Group 0 AH (95% CI)` and `RAH (95% CI)`.
 #'
 #' @examples
 #' adjsurv <- list(
@@ -62,29 +64,61 @@ ahsw_table <- function(x,
 
     ah <- x$ahsw
 
+    # Find CI columns such as low_95 / high_95 or low_90 / high_90.
+    low_col <- grep("^low_", names(ah), value = TRUE)[1]
+    high_col <- grep("^high_", names(ah), value = TRUE)[1]
+
+    # Fallback for old outputs, if needed.
+    if (is.na(low_col) && "low" %in% names(ah)) {
+      low_col <- "low"
+    }
+
+    if (is.na(high_col) && "upp" %in% names(ah)) {
+      high_col <- "upp"
+    }
+
+    if (is.na(low_col) || is.na(high_col)) {
+      stop("Cannot find confidence interval columns in `x$ahsw`.")
+    }
+
+    # Create a CI label from the column name.
+    # For example, low_95 -> 95% CI, low_90 -> 90% CI.
+    if (grepl("^low_", low_col)) {
+      ci_level <- sub("^low_", "", low_col)
+      ci_level <- gsub("_", ".", ci_level)
+      ci_label <- paste0(ci_level, "% CI")
+    } else {
+      ci_label <- "CI"
+    }
+
     group0 <- fmt_est(
       est = as.numeric(ah["group0", "est"]),
-      low = as.numeric(ah["group0", "low"]),
-      upp = as.numeric(ah["group0", "upp"])
+      low = as.numeric(ah["group0", low_col]),
+      upp = as.numeric(ah["group0", high_col])
     )
 
     group1 <- fmt_est(
       est = as.numeric(ah["group1", "est"]),
-      low = as.numeric(ah["group1", "low"]),
-      upp = as.numeric(ah["group1", "upp"])
+      low = as.numeric(ah["group1", low_col]),
+      upp = as.numeric(ah["group1", high_col])
     )
 
     difference <- fmt_est(
       est = as.numeric(ah["difference", "est"]),
-      low = as.numeric(ah["difference", "low"]),
-      upp = as.numeric(ah["difference", "upp"])
+      low = as.numeric(ah["difference", low_col]),
+      upp = as.numeric(ah["difference", high_col])
     )
 
     ratio <- fmt_est(
       est = exp(as.numeric(ah["log_dif", "est"])),
-      low = exp(as.numeric(ah["log_dif", "low"])),
-      upp = exp(as.numeric(ah["log_dif", "upp"]))
+      low = exp(as.numeric(ah["log_dif", low_col])),
+      upp = exp(as.numeric(ah["log_dif", high_col]))
     )
+
+    group0_col <- paste0(group0_name, " AH (", ci_label, ")")
+    group1_col <- paste0(group1_name, " AH (", ci_label, ")")
+    difference_col <- paste0("DAH (", ci_label, ")")
+    ratio_col <- paste0("RAH (", ci_label, ")")
 
   } else {
 
@@ -108,6 +142,11 @@ ahsw_table <- function(x,
     ratio <- fmt_est(
       est = exp(as.numeric(ah["ahsw", "log_dif"]))
     )
+
+    group0_col <- paste0(group0_name, " AH")
+    group1_col <- paste0(group1_name, " AH")
+    difference_col <- "DAH"
+    ratio_col <- "RAH"
   }
 
   out <- data.frame(
@@ -116,10 +155,10 @@ ahsw_table <- function(x,
     check.names = FALSE
   )
 
-  out[[group0_name]] <- group0
-  out[[group1_name]] <- group1
-  out[["Difference"]] <- difference
-  out[["Ratio"]] <- ratio
+  out[[group0_col]] <- group0
+  out[[group1_col]] <- group1
+  out[[difference_col]] <- difference
+  out[[ratio_col]] <- ratio
 
   return(out)
 }

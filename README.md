@@ -3,7 +3,7 @@
 
 # survAHadjust
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20277581.svg)](https://doi.org/10.5281/zenodo.20277581)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20277580.svg)](https://doi.org/10.5281/zenodo.20277580)
 
 `survAHadjust` calculates average hazard-based summaries from adjusted
 survival curves.
@@ -74,8 +74,8 @@ The result can be formatted as a one-row table:
 
 ``` r
 ahsw_table(res, method = "Example")
-#>    Method Group 0 Group 1 Difference Ratio
-#> 1 Example   0.333   0.158     -0.175 0.474
+#>    Method Group 0 AH Group 1 AH    DAH   RAH
+#> 1 Example      0.333      0.158 -0.175 0.474
 ```
 
 ## Standard adjusted survival curve methods
@@ -225,11 +225,26 @@ log_dif
 and columns:
 
 ``` text
-est      point estimate
-se       bootstrap standard error
-low      lower confidence limit
-upp      upper confidence limit
-p_value  two-sided p-value
+est       point estimate
+se        bootstrap standard error
+low_XX    lower confidence limit
+high_XX   upper confidence limit
+p_value   two-sided p-value
+```
+
+Here, `XX` is determined by the user-specified `conf_level`. For
+example, when `conf_level = 0.95`, the confidence interval columns are:
+
+``` text
+low_95
+high_95
+```
+
+When `conf_level = 0.90`, the confidence interval columns are:
+
+``` text
+low_90
+high_90
 ```
 
 The `p_value` is reported for `difference` and `log_dif`. The p-values
@@ -237,13 +252,22 @@ for `group0` and `group1` are set to `NA`, because the main comparisons
 are the difference and ratio between groups.
 
 For example, `res$ahsw` gives bootstrap-based inference for AHSW. The
-`log_dif` row is the log ratio of average hazards. The ratio and its
-confidence interval can be obtained by exponentiating the log-scale
-values:
+`log_dif` row is the log ratio of average hazards. When
+`conf_level = 0.95`, the ratio and its confidence interval can be
+obtained by exponentiating the log-scale values:
 
 ``` r
-exp(res$ahsw["log_dif", c("est", "low", "upp")])
+exp(res$ahsw["log_dif", c("est", "low_95", "high_95")])
 ```
+
+If a different confidence level is used, replace `low_95` and `high_95`
+with the corresponding column names.
+
+The helper function `ahsw_table()` uses these confidence interval column
+names to label the summary table. For example, if the bootstrap
+inference table contains `low_95` and `high_95`, the formatted table
+will use column names such as `Group 0 AH (95% CI)`,
+`Group 1 AH (95% CI)`, `DAH (95% CI)`, and `RAH (95% CI)`.
 
 ## Documentation
 
@@ -267,5 +291,5 @@ vignettes/survAHadjust.Rmd
 If you use `survAHadjust`, please cite the software DOI from Zenodo:
 
 ``` text
-Uno H, Horiguchi M, Xiong H. survAHadjust: Adjusted Average Hazard with Survival Weight. Version 1.0.1. Zenodo. https://doi.org/10.5281/zenodo.20277581
+Xiong H, Uno H. survAHadjust: Adjusted Average Hazard with Survival Weight. Zenodo. https://doi.org/10.5281/zenodo.20277580
 ```
