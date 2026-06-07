@@ -151,10 +151,14 @@ For non-AIPTW adjusted survival curve methods, users can use
 and then pass the resulting object to
 [`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
 
-If users prefer another implementation of AIPTW that returns an adjusted
-survival curve object with `adj`, `time`, `surv`, and `group`, that
-object can also be passed to
-[`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md).
+If users prefer another implementation of AIPTW, they can also use that
+output with
+[`adjusted_ahsw()`](https://kkevin821.github.io/survAHadjust/reference/adjusted_ahsw.md)
+as long as it is formatted as an adjusted survival curve object with an
+`adj` element containing columns `time`, `surv`, and `group`.
+
+For bootstrap-based confidence intervals, the object should also contain
+`boot_data` with columns `time`, `surv`, `group`, and `boot`.
 
 ``` r
 
