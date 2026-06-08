@@ -40,7 +40,7 @@ install.packages("pak")
 pak::pak("kkevin821/survAHadjust")
 ```
 
-For local development, after cloning the repository and opening the package folder in RStudio, install the package locally with:
+Developers who want to work with the source code can clone the repository, open the package folder in RStudio, and install the local version with:
 
 ```r
 devtools::install()
