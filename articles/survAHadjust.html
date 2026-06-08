@@ -358,6 +358,12 @@ column names.</p>
 <span><span class="co">#&gt; group1      0.1578947 0.016062150  0.1314749  0.1843146      NA</span></span>
 <span><span class="co">#&gt; difference -0.1754386 0.020607173 -0.2093344 -0.1415428       0</span></span>
 <span><span class="co">#&gt; log_dif    -0.7472144 0.008270833 -0.7608187 -0.7336101       0</span></span></code></pre></div>
+<p>The <code>p_value</code> column is mainly used for between-group
+comparisons. It is reported for <code>difference</code> and
+<code>log_dif</code>. The p-values for <code>group0</code> and
+<code>group1</code> are set to <code>NA</code>, because the main
+hypotheses are about the group contrast, not whether each group-specific
+estimate equals zero.</p>
 <p>When <code>conf_level = 0.90</code>, the confidence interval columns
 are named <code>low_90</code> and <code>high_90</code>. Similarly, when
 <code>conf_level = 0.95</code>, the columns are named

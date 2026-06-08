@@ -331,6 +331,11 @@ res_boot_90$ahsw
 #> log_dif    -0.7472144 0.008270833 -0.7608187 -0.7336101       0
 ```
 
+The `p_value` column is mainly used for between-group comparisons. It is
+reported for `difference` and `log_dif`. The p-values for `group0` and
+`group1` are set to `NA`, because the main hypotheses are about the
+group contrast, not whether each group-specific estimate equals zero.
+
 When `conf_level = 0.90`, the confidence interval columns are named
 `low_90` and `high_90`. Similarly, when `conf_level = 0.95`, the columns
 are named `low_95` and `high_95`.
