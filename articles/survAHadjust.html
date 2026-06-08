@@ -67,14 +67,23 @@ summaries from adjusted survival curves.</p>
 <pre class="text"><code>adjusted survival curves
   -&gt; adjusted_ahsw()
   -&gt; ahsw_table()</code></pre>
-<p>For most adjusted survival curve methods, users can use
-<code><a href="https://robindenz1.github.io/adjustedCurves/reference/adjustedsurv.html" class="external-link">adjustedCurves::adjustedsurv()</a></code>.</p>
-<p>For AIPTW, this package provides
-<code><a href="../reference/aiptw_adjustedsurv.html">aiptw_adjustedsurv()</a></code>.</p>
+<p>The function <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code> calculates RMST, event
+rate, and average hazard with survival weight (AHSW) from adjusted
+survival curves. The helper function <code><a href="../reference/ahsw_table.html">ahsw_table()</a></code> formats
+the AHSW results into a simple summary table.</p>
+<p>For most non-AIPTW adjusted survival curve methods, users can first
+use <code><a href="https://robindenz1.github.io/adjustedCurves/reference/adjustedsurv.html" class="external-link">adjustedCurves::adjustedsurv()</a></code> and then pass the
+resulting object to <code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code>.</p>
+<p>For AIPTW, <code>survAHadjust</code> provides
+<code><a href="../reference/aiptw_adjustedsurv.html">aiptw_adjustedsurv()</a></code>, which returns an adjusted survival
+curve object that can also be passed to
+<code><a href="../reference/adjusted_ahsw.html">adjusted_ahsw()</a></code>.</p>
 </div>
 <div class="section level2">
 <h2 id="load-packages">Load packages<a class="anchor" aria-label="anchor" href="#load-packages"></a>
 </h2>
+<p>This vignette assumes that <code>survAHadjust</code> has already been
+installed. See the README for installation instructions.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://kkevin821.github.io/survAHadjust/">survAHadjust</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/therneau/survival" class="external-link">survival</a></span><span class="op">)</span></span></code></pre></div>
