@@ -26,11 +26,15 @@ adjusted survival curves
   -> ahsw_table()
 ```
 
-For most adjusted survival curve methods, users can use `adjustedCurves::adjustedsurv()`.
+The function `adjusted_ahsw()` calculates RMST, event rate, and average hazard with survival weight (AHSW) from adjusted survival curves. The helper function `ahsw_table()` formats the AHSW results into a simple summary table.
 
-For AIPTW, this package provides `aiptw_adjustedsurv()`.
+For most non-AIPTW adjusted survival curve methods, users can first use `adjustedCurves::adjustedsurv()` and then pass the resulting object to `adjusted_ahsw()`.
+
+For AIPTW, `survAHadjust` provides `aiptw_adjustedsurv()`, which returns an adjusted survival curve object that can also be passed to `adjusted_ahsw()`.
 
 # Load packages
+
+This vignette assumes that `survAHadjust` has already been installed. See the README for installation instructions.
 
 ```{r setup}
 library(survAHadjust)
